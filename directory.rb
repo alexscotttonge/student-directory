@@ -40,7 +40,7 @@ end
 
 def print(students)
     students.each.with_index(1) do |student|
-      if student[:name].match /^[A-Na-n]/
+      if student[:name].length < 12
       puts "#{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
