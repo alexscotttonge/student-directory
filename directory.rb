@@ -14,19 +14,23 @@
 #    {name: "Norman Bates", cohort: :november},
 #  ]
 
+def centers(string)
+  puts string.center(50)
+end
+
 def input_students
-  puts 'Please enter the names of the students'
+  centers('Please enter the names of the students')
   # create an empty array
   students = []
   # get the full name
   name = gets.chomp
 
   # enter hobby
-  puts "Please enter a hobby"
+  centers("Please enter a hobby")
   hobby = gets.chomp
 
   # enter date of birth
-  puts "What is the students date of birth? (dd/mm/yy)"
+  centers("What is the students date of birth? (dd/mm/yy)")
   dob = gets.chomp
 
   # while name is not empty, repeat this code
@@ -39,9 +43,9 @@ def input_students
       dob: dob
     }
 
-    puts "Now we have #{students.count} students"
+    centers("Now we have #{students.count} students")
     # get another name from the user
-    puts "Please enter another name, hobby and date of birth. Press enter three times to finish."
+    centers("Please enter another name, hobby and date of birth. Press enter three times to finish.")
     name = gets.chomp
     hobby = gets.chomp
     dob = gets.chomp
@@ -52,20 +56,20 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  centers("The students of Villains Academy")
+  centers("-------------")
 end
 
 def print(students)
   i = 0
   while i < students.length do
-      puts "#{students[i][:name]} (#{students[i][:cohort]} cohort), hobby: #{students[i][:hobby]}, D.O.B: #{students[i][:dob]}"
+      centers("#{students[i][:name]} (#{students[i][:cohort]} cohort), hobby: #{students[i][:hobby]}, D.O.B: #{students[i][:dob]}")
       i += 1
   end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  centers("Overall, we have #{students.count} great students")
 end
 
 # nothing happens until we call the methods
