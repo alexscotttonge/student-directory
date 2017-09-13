@@ -22,33 +22,30 @@ def input_students
   centers('Please enter the names of the students')
   # create an empty array
   students = []
-  # get the full name
+  # get the full name and add default value
   name = gets.chomp
-
-  # enter hobby
-  centers("Please enter a hobby")
-  hobby = gets.chomp
-
-  # enter date of birth
-  centers("What is the students date of birth? (dd/mm/yy)")
-  dob = gets.chomp
-
+    if name.empty?
+      name = 'Sauron'
+    end
+  # enter cohort and add default value
+  centers("Please enter a cohort")
+  cohort = gets.chomp
+    if cohort.empty?
+      cohort = 'September'
+    end
   # while name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
     students << {
       name: name,
-      cohort: :november,
-      hobby: hobby,
-      dob: dob
+      cohort: cohort,
     }
 
     centers("Now we have #{students.count} students")
     # get another name from the user
-    centers("Please enter another name, hobby and date of birth. Press enter three times to finish.")
+    centers("Please enter another name and cohort. Press enter two times to finish.")
     name = gets.chomp
-    hobby = gets.chomp
-    dob = gets.chomp
+    cohort = gets.chomp
 
   end
   # return array of students
@@ -61,10 +58,8 @@ def print_header
 end
 
 def print(students)
-  i = 0
-  while i < students.length do
-      centers("#{students[i][:name]} (#{students[i][:cohort]} cohort), hobby: #{students[i][:hobby]}, D.O.B: #{students[i][:dob]}")
-      i += 1
+  students.each do |student|
+      centers("#{student[:name]} (#{student[:cohort]} cohort)")
   end
 end
 
