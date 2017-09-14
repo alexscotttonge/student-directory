@@ -14,21 +14,20 @@
 #    {name: "Norman Bates", cohort: :november},
 #  ]
 
-def centers(string)
-  puts string.center(50)
-end
 
 def input_students
-  centers('Please enter the names of the students')
+  puts 'Please enter the names of the students'
   # create an empty array
   students = []
+
   # get the full name and add default value
   name = gets.chomp
     if name.empty?
       name = 'Sauron'
     end
+
   # enter cohort and add default value
-  centers("Please enter a cohort")
+  puts "Please enter a cohort for #{name}"
   cohort = gets.chomp
     if cohort.empty?
       cohort = 'September'
@@ -41,11 +40,16 @@ def input_students
       cohort: cohort,
     }
 
-    centers("Now we have #{students.count} students")
+    if students.length > 1
+      puts "Now we have #{students.count} students"
+    else
+      puts "Now we have #{students.count} student"
+    end
     # get another name from the user
-    centers("Please enter another name and cohort. Press enter two times to finish.")
+    puts "Please enter another name and cohort. Press enter three times to finish."
     name = gets.chomp
     cohort = gets.chomp
+
 
   end
   # return array of students
@@ -53,22 +57,25 @@ def input_students
 end
 
 def print_header
-  centers("The students of Villains Academy")
-  centers("-------------")
+  puts "The students of Villains Academy"
+  puts "-------------"
 end
 
 def print(students)
-  students.each do |student|
-      centers("#{student[:name]} (#{student[:cohort]} cohort)")
+ students.each do |student|
+      puts "#{student[:name]}, (#{student[:cohort]} cohort)"
   end
 end
 
 def print_footer(students)
-  centers("Overall, we have #{students.count} great students")
+  if students.length > 1
+    puts "Overall, we have #{students.count} great students"
+  else
+    puts "Overall, we have #{students.count} great student"
+  end
 end
 
 # nothing happens until we call the methods
 students = input_students
-print_header
 print(students)
 print_footer(students)
