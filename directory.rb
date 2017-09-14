@@ -21,14 +21,14 @@ def input_students
   students = []
 
   # get the full name and add default value
-  name = gets.chomp
+  name = gets.strip
     if name.empty?
       name = 'Sauron'
     end
 
   # enter cohort and add default value
   puts "Please enter a cohort for #{name}"
-  cohort = gets.chomp
+  cohort = gets.strip
     if cohort.empty?
       cohort = 'September'
     end
@@ -47,8 +47,8 @@ def input_students
     end
     # get another name from the user
     puts "Please enter another name and cohort. Press enter three times to finish."
-    name = gets.chomp
-    cohort = gets.chomp
+    name = gets.strip
+    cohort = gets.strip
 
 
   end
