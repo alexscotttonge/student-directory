@@ -46,7 +46,7 @@ def input_students
       puts "Now we have #{students.count} student"
     end
     # get another name from the user
-    puts "Please enter another name and cohort. Press enter three times to finish."
+    puts "Please enter another name and cohort. Press enter two times to finish."
     name = gets.strip
     cohort = gets.strip
 
@@ -77,5 +77,5 @@ end
 
 # nothing happens until we call the methods
 students = input_students
-print(students)
+print(students.sort_by { |value| value[:cohort]})
 print_footer(students)
