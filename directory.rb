@@ -16,22 +16,30 @@
 
 
 def input_students
-  puts 'Please enter the names of the students'
+
+  name = ''
+
   # create an empty array
   students = []
 
-  # get the full name and add default value
-  name = gets.strip
-    if name.empty?
-      name = 'Sauron'
-    end
+  puts 'Please enter the names of the students'
 
-  # enter cohort and add default value
-  puts "Please enter a cohort for #{name}"
-  cohort = gets.strip
-    if cohort.empty?
-      cohort = 'September'
+  # get the full name
+  name = gets.chomp
+
+  # force user to input name so empty list won't be created
+  while true do
+    if name.empty?
+      puts "enter name"
+      name = gets.chomp
     end
+    break if !name.empty?
+  end
+
+  # enter cohort
+  puts "Please enter a cohort for the student"
+  cohort = gets.chomp
+
   # while name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
@@ -68,14 +76,17 @@ def print(students)
 end
 
 def print_footer(students)
-  if students.length > 1
+  if students.length == 1
     puts "Overall, we have #{students.count} great students"
-  else
+  elsif students.length > 1
     puts "Overall, we have #{students.count} great student"
+  else
+    # added control flow so an empty list won't be printed when there are no students
+    puts "There are no students in the list"
   end
 end
 
 # nothing happens until we call the methods
 students = input_students
-print(students.sort_by { |value| value[:cohort]})
+print(students)
 print_footer(students)
