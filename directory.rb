@@ -112,9 +112,9 @@ end
 
 def print_footer
   if @students.length == 1
-    puts "Overall, we have #{@students.count} great students"
-  elsif @students.length > 1
     puts "Overall, we have #{@students.count} great student"
+  elsif @students.length > 1
+    puts "Overall, we have #{@students.count} great students"
   else
     # added control flow so an empty list won't be printed when there are no students
     puts "There are no students in the list"
@@ -133,11 +133,11 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    @students << {name: name, cohort: cohort}
   end
   file.close
 end
