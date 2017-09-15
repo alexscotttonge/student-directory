@@ -17,7 +17,7 @@
 def interactive_menu
   loop do
     print_menu
-    process(STDIN.gets.chomp)
+    choose_menu_item(STDIN.gets.chomp)
   end
 end
 
@@ -52,13 +52,28 @@ def choose_menu_item(selection)
   end
 end
 
+def add_student_name
+  puts "You've chosen to 'Input Students' from the menu, is that right?"
+  answer = gets.chomp
+  if answer == 'yes'.downcase
+    puts 'Great, please enter the names of the students'
+  else
+    "Ok, we'll return to the menu"
+    print_menu
+  end
+  # get the full name
+  @name = STDIN.gets.chomp
+end
+
+def enter_student_cohort
+  # enter cohort month
+  puts "Please enter a cohort for the student"
+  @cohort = STDIN.gets.chomp
+end
 
 def input_students
 
-  puts 'Please enter the names of the students'
-
-  # get the full name
-  @name = STDIN.gets.chomp
+  add_student_name
 
   loop do # change while loop to simple loop
     if @name.empty?
@@ -68,9 +83,7 @@ def input_students
     break if !@name.empty?
   end
 
-  # enter cohort month
-  puts "Please enter a cohort for the student"
-  @cohort = STDIN.gets.chomp
+  enter_student_cohort
 
   # while name is not empty, repeat this code
   while !@name.empty? do
