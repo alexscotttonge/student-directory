@@ -61,28 +61,25 @@ def input_students
   puts 'Please enter the names of the students'
 
   # get the full name
-  name = STDIN.gets.chomp
+  @name = STDIN.gets.chomp
 
   # force user to input name so empty list won't be created
   while true do
-    if name.empty?
+    if @name.empty?
       puts "Please enter a name"
-      name = STDIN.gets.chomp
+      @name = STDIN.gets.chomp
     end
-    break if !name.empty?
+    break if !@name.empty?
   end
 
-  # enter cohort
+  # enter cohort month
   puts "Please enter a cohort for the student"
-  cohort = STDIN.gets.chomp
+  @cohort = STDIN.gets.chomp
 
   # while name is not empty, repeat this code
-  while !name.empty? do
+  while !@name.empty? do
     # add the student hash to the array
-    @students << {
-      name: name,
-      cohort: cohort,
-    }
+    add_students_to_array
 
     if @students.length > 1
       puts "Now we have #{@students.count} students"
@@ -91,11 +88,15 @@ def input_students
     end
     # get another name from the user
     puts "Please enter another name and cohort."
-    name = STDIN.gets.chomp
-    cohort = STDIN.gets.chomp
+    @name = STDIN.gets.chomp
+    @cohort = STDIN.gets.chomp
   end
   # return array of students
   @students
+end
+
+def add_students_to_array
+  @students << {name: @name, cohort: @cohort}
 end
 
 
@@ -136,8 +137,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort}
+    @name, @cohort = line.chomp.split(',')
+    add_students_to_array
   end
   file.close
 end
