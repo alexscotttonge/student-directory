@@ -22,6 +22,8 @@ def interactive_menu
 end
 
 def print_menu
+  puts "Please choose from one of the following"
+  puts '---------------------'
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the students to students.csv"
@@ -53,12 +55,11 @@ def choose_menu_item(selection)
 end
 
 def add_student_name
-  puts "You've chosen to 'Input Students' from the menu, is that right?"
+  puts "You've chosen to 'Input Students' from the menu, is that right?\nEnter 'no' to return to the menu"
   answer = gets.chomp
   if answer == 'yes'.downcase
     puts 'Great, please enter the names of the students'
   else
-    "Ok, we'll return to the menu"
     print_menu
   end
   # get the full name
@@ -92,7 +93,7 @@ def input_students
     count_students
 
     # get another name from the user
-    puts "Please enter another name and cohort."
+    puts "Please enter another name and cohort. Hit enter twice to get back to the menu"
     @name = STDIN.gets.chomp
     @cohort = STDIN.gets.chomp
   end
@@ -136,6 +137,7 @@ def print_footer
 end
 
 def save_students
+  puts "The students have been successfully saved to the file 'students.csv'"
   # open the file for writing
   file = File.open("students.csv", "w")
   # iterate over the array of students
@@ -152,6 +154,7 @@ def load_students(filename = "students.csv")
   file.readlines.each do |line|
     @name, @cohort = line.chomp.split(',')
     add_students_to_array
+  puts "The students have been successfully loaded to the file 'students.csv'"
   end
   file.close
 end
