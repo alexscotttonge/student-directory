@@ -35,7 +35,7 @@ def show_students
   print_footer
 end
 
-def process(selection)
+def choose_menu_item(selection)
   case selection
     when "1"
       input_students
@@ -55,16 +55,12 @@ end
 
 def input_students
 
-  # create an empty array
-  @students = []
-
   puts 'Please enter the names of the students'
 
   # get the full name
   @name = STDIN.gets.chomp
 
-  # force user to input name so empty list won't be created
-  while true do
+  loop do # change while loop to simple loop
     if @name.empty?
       puts "Please enter a name"
       @name = STDIN.gets.chomp
@@ -80,12 +76,8 @@ def input_students
   while !@name.empty? do
     # add the student hash to the array
     add_students_to_array
+    count_students
 
-    if @students.length > 1
-      puts "Now we have #{@students.count} students"
-    else
-      puts "Now we have #{@students.count} student"
-    end
     # get another name from the user
     puts "Please enter another name and cohort."
     @name = STDIN.gets.chomp
@@ -93,6 +85,14 @@ def input_students
   end
   # return array of students
   @students
+end
+
+def count_students # added separate method to count students
+  if @students.length > 1
+   puts "Now we have #{@students.count} students"
+  else
+   puts "Now we have #{@students.count} student"
+  end
 end
 
 def add_students_to_array
@@ -144,7 +144,7 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  filename = "students.csv" # first argument from the command line
+  filename = ARGV.first # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
