@@ -1,3 +1,5 @@
+
+
 # students = [
 #    {name: "Dr. Hannibal Lecter", cohort: :november},
 #    {name: "Darth Vader", cohort: :november},
@@ -54,17 +56,13 @@ end
 
 
 def input_students
-
-  # create an empty array
-  @students = []
-
+# removed @students array
   puts 'Please enter the names of the students'
 
   # get the full name
   @name = STDIN.gets.chomp
 
-  # force user to input name so empty list won't be created
-  while true do
+  loop do # changed while loop to simple loop
     if @name.empty?
       puts "Please enter a name"
       @name = STDIN.gets.chomp
@@ -78,14 +76,8 @@ def input_students
 
   # while name is not empty, repeat this code
   while !@name.empty? do
-    # add the student hash to the array
-    add_students_to_array
-
-    if @students.length > 1
-      puts "Now we have #{@students.count} students"
-    else
-      puts "Now we have #{@students.count} student"
-    end
+    add_students_to_array # add the student hash to the array
+    count_students
     # get another name from the user
     puts "Please enter another name and cohort."
     @name = STDIN.gets.chomp
@@ -94,6 +86,15 @@ def input_students
   # return array of students
   @students
 end
+
+def count_students # added separate method to count students
+  if @students.length > 1
+    puts "Now we have #{@students.count} students"
+  else
+    puts "Now we have #{@students.count} student"
+  end
+end
+
 
 def add_students_to_array
   @students << {name: @name, cohort: @cohort}
@@ -144,7 +145,7 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  filename = "students.csv" # first argument from the command line
+  filename = ARGV.first # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
