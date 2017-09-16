@@ -13,6 +13,7 @@
 #  ]
 
 @students = []
+@file = ''
 
 def interactive_menu
   loop do
@@ -136,28 +137,37 @@ def print_footer
   end
 end
 
+def input_file_name(save_or_load)
+  puts "Please provide the name of the csv file you'd like to #{save_or_load} the students to (e.g. students.csv)"
+  @file = STDIN.gets.chomp
+end
+
 def save_students
-  puts "The students have been successfully saved to the file 'students.csv'"
   # open the file for writing
-  file = File.open("students.csv", "w")
+  input_file_name('save')
+  file = File.open(@file, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
+  puts "The students have been successfully saved to the file #{@file}"
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename = @file)
+  input_file_name('load')
   file = File.open(filename, "r")
   file.readlines.each do |line|
     @name, @cohort = line.chomp.split(',')
     add_students_to_array
-  puts "The students have been successfully loaded to the file 'students.csv'"
   end
+  puts "The students have been successfully loaded from the file #{@file}"
   file.close
 end
+
+
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
