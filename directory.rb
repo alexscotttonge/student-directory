@@ -146,21 +146,16 @@ def save_students
       csv << [student[:name], student[:cohort]] # add each row to the csv
     end
     puts "The students have been successfully saved to the file"
-  end # csv is closed automatically when block ends 
+  end # csv is closed automatically when block ends
 end
 
-def load_students(filename = @file)
-  input_file_name('load')
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      @name, @cohort = line.chomp.split(',')
-      add_students_to_array
-    end
-    puts "The students have been successfully loaded from the file #{@file}"
-  end
+def load_students
+  CSV.foreach("students.csv") do |row|
+    name, cohort = row # parallel assignment for each line of array
+    add_students_to_array
+  end # csv is closed automatically when block ends
+  puts "The students have been successfully loaded from the file"
 end
-
-
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
