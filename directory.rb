@@ -74,9 +74,7 @@ def enter_student_cohort
 end
 
 def input_students
-
   add_student_name
-
   loop do # change while loop to simple loop
     if @name.empty?
       puts "Please enter a name"
@@ -84,15 +82,13 @@ def input_students
     end
     break if !@name.empty?
   end
-
   enter_student_cohort
-
   # while name is not empty, repeat this code
   while !@name.empty? do
     # add the student hash to the array
     add_students_to_array
+    # count and display number of students added
     count_students
-
     # get another name from the user
     puts "Please enter another name and cohort. Hit enter twice to get back to the menu"
     @name = STDIN.gets.chomp
@@ -113,7 +109,6 @@ end
 def add_students_to_array
   @students << {name: @name, cohort: @cohort}
 end
-
 
 def print_header
   puts "The students of Villains Academy"
@@ -145,28 +140,27 @@ end
 def save_students
   # open the file for writing
   input_file_name('save')
-  file = File.open(@file, "w")
+  File.open(@file, "w") do |file| # added code block to automatically open and close the file
   # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  puts "The students have been successfully saved to the file #{@file}"
-  file.close
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
+    puts "The students have been successfully saved to the file #{@file}"
+  end # File object is closed when the block ends
 end
 
 def load_students(filename = @file)
   input_file_name('load')
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    @name, @cohort = line.chomp.split(',')
-    add_students_to_array
-  end
-  puts "The students have been successfully loaded from the file #{@file}"
-  file.close
+  File.open(filename, "r") do |file| # added code block to automatically open and close the file
+    file.readlines.each do |line|
+      @name, @cohort = line.chomp.split(',')
+      add_students_to_array
+    end
+    puts "The students have been successfully loaded from the file #{@file}"
+  end # File object is closed when the block ends
 end
-
 
 
 def try_load_students
